@@ -1,0 +1,6 @@
+/workspaces/Project1Spring-shopcloud/ShopRating/src/main/java/it/smartcommunitylabdhub/shoprating/ShopRatingApplication.java
+/workspaces/Project1Spring-shopcloud/ShopRating/src/main/java/it/smartcommunitylabdhub/shoprating/controller/RatingController.java
+/workspaces/Project1Spring-shopcloud/ShopRating/src/main/java/it/smartcommunitylabdhub/shoprating/model/Rating.java
+/workspaces/Project1Spring-shopcloud/ShopRating/src/main/java/it/smartcommunitylabdhub/shoprating/model/RatingKey.java
+/workspaces/Project1Spring-shopcloud/ShopRating/src/main/java/it/smartcommunitylabdhub/shoprating/repository/RatingRepository.java
+/workspaces/Project1Spring-shopcloud/ShopRating/src/main/java/it/smartcommunitylabdhub/shoprating/service/RatingService.java

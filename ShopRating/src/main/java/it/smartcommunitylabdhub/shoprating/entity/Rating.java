@@ -13,23 +13,22 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class Rating {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
 
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Long id;
+    @Column(name = "product_id", nullable = false)
+    private Long productId;
 
 
-@Column(name = "product_id", nullable = false)
-private Long productId;
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
 
-@Column(name = "user_id", nullable = false)
-private Long userId;
+    @Column(nullable = false)
+    private int voto; // 1-5
 
 
-@Column(nullable = false)
-private int voto; // 1-5
-
-
-private String commento;
+    private String commento;
+}

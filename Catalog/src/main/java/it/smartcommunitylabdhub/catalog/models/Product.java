@@ -1,19 +1,21 @@
 package it.smartcommunitylabdhub.catalog.models;
 
+import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "products")
+@Entity
+@Table(name = "products")
 public class Product {
 
     @Id
-    private String id;
-    @NonNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
     private String code;
     private String title;
     private String category;

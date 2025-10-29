@@ -26,7 +26,7 @@ public class ProductController {
 
     //    Get product by Id: /api/products/{id}
     @GetMapping("/{id}")
-    public ProductDTO getProductById(@PathVariable String id) {
+    public ProductDTO getProductById(@PathVariable Long id) {
         return productService.getProductById(id).orElse(null);
     }
 
@@ -45,7 +45,7 @@ public class ProductController {
 
     //    Change availability: PUT /api/products/{id}/availability/{value}
     @PutMapping("/{id}/availability/{value}")
-    public ProductDTO changeAvailability(@PathVariable String id,
+    public ProductDTO changeAvailability(@PathVariable Long id,
                                          @PathVariable Integer value) {
         return productService.changeAvailability(id, value);
     }

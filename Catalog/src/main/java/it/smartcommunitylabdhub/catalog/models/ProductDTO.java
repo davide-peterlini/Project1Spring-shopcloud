@@ -1,6 +1,5 @@
 package it.smartcommunitylabdhub.catalog.models;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductDTO {
-    private String id;
+    private Long id; // Cambiato da String a Long per compatibilità JPA
     private String code;
     private String title;
     private String category;

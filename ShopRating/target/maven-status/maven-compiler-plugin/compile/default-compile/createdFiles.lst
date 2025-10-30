@@ -1,0 +1,4 @@
+it/smartcommunitylabdhub/shoprating/controller/RatingController$RatingRequest.class
+it/smartcommunitylabdhub/shoprating/controller/PopularController.class
+it/smartcommunitylabdhub/shoprating/configs/RestTemplateConfig.class
+it/smartcommunitylabdhub/shoprating/dto/PopularProductDTO.class

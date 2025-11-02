@@ -1,0 +1,8 @@
+### Test rating API
+POST http://localhost:8080/api/ratings/1/2
+Content-Type: application/json
+
+{
+  "voto": 5,
+  "commento": "Ottimo prodotto, consigliato!"
+}

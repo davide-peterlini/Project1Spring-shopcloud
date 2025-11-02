@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface RatingRepository extends JpaRepository<Rating, Long> {
 
-    Optional<Rating> findByProductIdAndUserId(Long productId, Long userId);
+    Optional<Rating> findByProductIdAndUserId(User productId, Product userId);
 
     Page<Rating> findByProductId(Long productId, Pageable pageable);
 

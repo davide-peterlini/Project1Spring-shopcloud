@@ -2,6 +2,9 @@ package it.smartcommunitylabdhub.shoprating.service;
 
 import com.example.shoprating.entity.Rating;
 import com.example.shoprating.repository.RatingRepository;
+
+import main.java.it.smartcommunitylabdhub.shoprating.dto.RatingRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -13,15 +16,31 @@ import java.util.stream.Collectors;
 public class RatingService {
 
     @Autowired
-    private RatingRepository ratingRepository;
+    private final RatingRepository ratingRepository;
+    private final UserRepository userRepository;
+    private final ProductRepository productRepository;
 
-    public Rating saveOrUpdateRating(Long productId, Long userId, int voto, String commento) {
-        Rating rating = ratingRepository.findByProductIdAndUserId(productId, userId)
+    public RatingService(RatingRepository ratingRepository, UserRepository userRepository, ProductRepository productRepository) {
+        this.ratingRepository = ratingRepository;
+        this.userRepository = userRepository;
+        this.productRepository = productRepository;
+    }
+
+
+    public Rating saveOrUpdateRating(Long productId, Long userId, RatingRequest request) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Utente non trovato"));
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Prodotto non trovato"));
+
+        Rating rating = ratingRepository.findByUserAndProduct(user, product)
                 .orElse(new Rating());
-        rating.setProductId(productId);
-        rating.setUserId(userId);
-        rating.setVoto(voto);
-        rating.setCommento(commento);
+
+        rating.setUser(user);
+        rating.setProduct(product);
+        rating.setVoto(request.getVoto());
+        rating.setCommento(request.getCommento());
+
         return ratingRepository.save(rating);
     }
 

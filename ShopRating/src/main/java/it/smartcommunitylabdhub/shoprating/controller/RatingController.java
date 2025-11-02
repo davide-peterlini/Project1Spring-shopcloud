@@ -2,6 +2,9 @@ package it.smartcommunitylabdhub.shoprating.controller;
 
 import com.example.shoprating.entity.Rating;
 import com.example.shoprating.service.RatingService;
+
+import main.java.it.smartcommunitylabdhub.shoprating.dto.RatingRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.http.*;
@@ -14,7 +17,11 @@ import java.util.*;
 public class RatingController {
 
     @Autowired
-    private RatingService ratingService;
+    private final RatingService ratingService;
+
+    public RatingController(RatingService ratingService) {
+        this.ratingService = ratingService;
+    }
 
     // DTO per il body
     public record RatingRequest(int voto, String commento) {}
@@ -25,7 +32,7 @@ public class RatingController {
             @PathVariable Long userId,
             @RequestBody RatingRequest request) {
 
-        Rating rating = ratingService.saveOrUpdateRating(productId, userId, request.voto(), request.commento());
+        Rating rating = ratingService.addOrUpdateRating(productId, userId, request);
         return ResponseEntity.ok(rating);
     }
 

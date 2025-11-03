@@ -16,13 +16,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional // Importante per JPA
 public class OrderService {
 
     @Autowired
-    OrderRepository orderRepository;
+    private OrderRepository orderRepository;
 
     @Autowired
     OpenFeignCatalogService catalogService;
@@ -118,5 +120,18 @@ public class OrderService {
                     orderDTO.setStatus(order.getStatus());
                     return orderDTO;
                 }).orElse(null);
+    }
+
+    public List<Order> findByUserId(String userId) {
+        return orderRepository.findByUserIdWithItems(userId);
+    }
+
+    public Order findById(Long id) {
+        return orderRepository.findByIdWithItems(id)
+            .orElse(null);
+    }
+
+    public Order save(Order order) {
+        return orderRepository.save(order);
     }
 }

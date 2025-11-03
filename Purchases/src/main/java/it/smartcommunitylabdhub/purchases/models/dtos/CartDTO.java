@@ -13,9 +13,19 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class CartDTO {
-
+    private Long id; // Cambia da String a Long se necessario
     private String userId;
-    private List<Item> items;
+    private List<ItemDTO> items;
     private Double totalPrice;
+
+    // Aggiungere ItemDTO se non esiste
+    public static class ItemDTO {
+        private Long id; // Nuovo campo
+        private String productId;
+        private Integer quantity;
+        private Double price;
+
+        // constructors, getters, setters...
+    }
 }
 

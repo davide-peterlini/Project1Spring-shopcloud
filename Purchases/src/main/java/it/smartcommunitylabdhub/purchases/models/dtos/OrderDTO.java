@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -14,11 +15,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderDTO {
-
-    private String id;
+    private Long id; // Cambia da String a Long se necessario
     private String userId;
-    private List<Item> items;
-    private Double totalPrice;
+    private Double totalAmount;
     private String status;
-    private PaymentDTO payment;
+    private LocalDateTime orderDate;
+    private List<ItemDTO> items;
 }

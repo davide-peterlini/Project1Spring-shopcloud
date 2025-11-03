@@ -9,10 +9,12 @@ import it.smartcommunitylabdhub.purchases.models.dtos.CartDTO;
 import it.smartcommunitylabdhub.purchases.repositories.CartRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional // Importante per JPA
 public class CartService {
 
     private final CartRepository cartRepository;
@@ -132,4 +134,17 @@ public class CartService {
         }
     }
 
+    public Cart findByUserId(String userId) {
+        return cartRepository.findByUserIdWithItems(userId)
+            .orElse(null);
+    }
+    
+    public Cart save(Cart cart) {
+        return cartRepository.save(cart);
+    }
+    
+    @Transactional
+    public void deleteByUserId(String userId) {
+        cartRepository.deleteByUserId(userId);
+    }
 }

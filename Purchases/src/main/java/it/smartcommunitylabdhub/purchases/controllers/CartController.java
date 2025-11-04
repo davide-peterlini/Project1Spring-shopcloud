@@ -1,6 +1,6 @@
 package it.smartcommunitylabdhub.purchases.controllers;
 
-import it.smartcommunitylabdhub.purchases.models.Cart;
+import it.smartcommunitylabdhub.purchases.models.dtos.CartDTO;
 import it.smartcommunitylabdhub.purchases.services.CartService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,53 +18,64 @@ public class CartController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<Optional<Cart>> getCart(@PathVariable String userId) {
-        return ResponseEntity.status(200).body(
-                cartService.getCart(userId)
-        );
+    public ResponseEntity<CartDTO> getCart(@PathVariable String userId) {
+        Optional<CartDTO> cart = cartService.getCartByUserId(userId);
+        if (cart.isPresent()) {
+            return ResponseEntity.ok(cart.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("/{userId}")
-    public ResponseEntity<Optional<Cart>> updateCart(@PathVariable String userId, Cart cart) {
+    public ResponseEntity<CartDTO> updateCart(@PathVariable String userId, @RequestBody CartDTO cart) {
         try {
-            return ResponseEntity.status(200).body(
-                    cartService.updateCart(userId, cart)
-            );
+            cart.setUserId(userId);
+            CartDTO updatedCart = cartService.updateCart(cart);
+            return ResponseEntity.ok(updatedCart);
         } catch (Exception e) {
-            return ResponseEntity.status(500).body(null);
+            return ResponseEntity.status(500).build();
         }
     }
 
     @DeleteMapping("/{userId}")
     public ResponseEntity<Boolean> deleteCart(@PathVariable String userId) {
         try {
-            cartService.deleteCart(userId);
+            cartService.deleteCartByUserId(userId);
+            return ResponseEntity.ok(true);
         } catch (Exception e) {
             return ResponseEntity.status(500).body(false);
         }
-        return ResponseEntity.status(200).body(true);
     }
 
-    @PutMapping("/{userId}/{productId}/{quantity}")
-    public ResponseEntity<Optional<Cart>> addProductToCart(
+    @PutMapping("/{userId}/items/{productId}")
+    public ResponseEntity<CartDTO> addProductToCart(
             @PathVariable String userId,
             @PathVariable String productId,
-            @PathVariable Integer quantity) {
+            @RequestParam Integer quantity,
+            @RequestParam Double price) {
         try {
-            cartService.addProductToCart(userId, productId, quantity);
+            CartDTO.ItemDTO itemDTO = new CartDTO.ItemDTO();
+            itemDTO.setProductId(productId);
+            itemDTO.setQuantity(quantity);
+            itemDTO.setPrice(price);
+
+            CartDTO updatedCart = cartService.addItemToCart(userId, itemDTO);
+            return ResponseEntity.ok(updatedCart);
         } catch (Exception e) {
-            return ResponseEntity.status(500).body(null);
+            return ResponseEntity.status(500).build();
         }
-        return ResponseEntity.status(200)
-                .body(cartService.getCart(userId));
     }
 
-    @PutMapping("/{userId}/{productId}")
-    public ResponseEntity<Optional<Cart>> removeProductFromCart(
+    @DeleteMapping("/{userId}/items/{productId}")
+    public ResponseEntity<CartDTO> removeProductFromCart(
             @PathVariable String userId,
             @PathVariable String productId) {
-        return ResponseEntity.status(200).body(
-                cartService.removeProductFromCart(userId, productId)
-        );
+        try {
+            CartDTO updatedCart = cartService.removeItemFromCart(userId, productId);
+            return ResponseEntity.ok(updatedCart);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).build();
+        }
     }
 }

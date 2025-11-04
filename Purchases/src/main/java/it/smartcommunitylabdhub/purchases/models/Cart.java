@@ -1,65 +1,76 @@
 package it.smartcommunitylabdhub.purchases.models;
 
-import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import javax.persistence.*;
+import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "carts")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-@Document(collection = "carts")
 public class Cart {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // NON String id
-
+    private Long id;
+    
     @Column(name = "user_id", nullable = false)
     private String userId;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cart", orphanRemoval = true)
-    private List<Item> items;
+    
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Item> items = new ArrayList<>();
+    
+    @Column(name = "total_price")
+    private Double totalPrice = 0.0;
 
     // Constructors
     public Cart() {}
 
-    public Cart(String userId) {
+    public Cart(String userId, List<Item> items, Double totalPrice) {
         this.userId = userId;
+        this.items = items != null ? items : new ArrayList<>();
+        this.totalPrice = totalPrice;
     }
 
     // Getters and Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getUserId() { return userId; }
-    public void setUserId(String userId) { this.userId = userId; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public List<Item> getItems() { return items; }
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
     public void setItems(List<Item> items) {
-        this.items = items;
-        if (items != null) {
-            items.forEach(item -> item.setCart(this));
-        }
+        this.items = items != null ? items : new ArrayList<>();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Cart cart = (Cart) o;
-        return Objects.equals(id, cart.id);
+    public Double getTotalPrice() {
+        return totalPrice;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+    
+    // Helper methods
+    public void addItem(Item item) {
+        items.add(item);
+        item.setCart(this);
+    }
+
+    public void removeItem(Item item) {
+        items.remove(item);
+        item.setCart(null);
     }
 }
-

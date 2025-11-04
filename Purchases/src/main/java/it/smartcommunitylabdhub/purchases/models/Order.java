@@ -1,78 +1,121 @@
 package it.smartcommunitylabdhub.purchases.models;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "orders")
 public class Order {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // NON String id
+    private Long id;
     
     @Column(name = "user_id", nullable = false)
     private String userId;
     
-    @Column(name = "total_amount", nullable = false)
-    private Double totalAmount;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Item> items = new ArrayList<>();
     
-    @Column(nullable = false)
-    private String status;
+    @Column(name = "total_price")
+    private Double totalPrice = 0.0;
     
-    @Column(name = "order_date", nullable = false)
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
+    
+    @Column(name = "order_date")
     private LocalDateTime orderDate;
     
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "order", orphanRemoval = true)
-    private List<Item> items;
-    
+    @Column(name = "payment_id")
+    private String paymentId;
+
+    // Enum for order status
+    public enum OrderStatus {
+        PENDING, CONFIRMED, SHIPPED, DELIVERED, CANCELLED
+    }
+
     // Constructors
     public Order() {
         this.orderDate = LocalDateTime.now();
+        this.status = OrderStatus.PENDING;
     }
-    
-    public Order(String userId, Double totalAmount, String status) {
+
+    public Order(String userId, List<Item> items, Double totalPrice, OrderStatus status) {
         this.userId = userId;
-        this.totalAmount = totalAmount;
+        this.items = items != null ? items : new ArrayList<>();
+        this.totalPrice = totalPrice;
         this.status = status;
         this.orderDate = LocalDateTime.now();
     }
-    
+
     // Getters and Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    
-    public String getUserId() { return userId; }
-    public void setUserId(String userId) { this.userId = userId; }
-    
-    public Double getTotalAmount() { return totalAmount; }
-    public void setTotalAmount(Double totalAmount) { this.totalAmount = totalAmount; }
-    
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
-    
-    public LocalDateTime getOrderDate() { return orderDate; }
-    public void setOrderDate(LocalDateTime orderDate) { this.orderDate = orderDate; }
-    
-    public List<Item> getItems() { return items; }
-    public void setItems(List<Item> items) { 
-        this.items = items;
-        if (items != null) {
-            items.forEach(item -> item.setOrder(this));
-        }
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items != null ? items : new ArrayList<>();
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(LocalDateTime orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public String getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(String paymentId) {
+        this.paymentId = paymentId;
     }
     
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Order order = (Order) o;
-        return Objects.equals(id, order.id);
+    // Helper methods
+    public void addItem(Item item) {
+        items.add(item);
+        item.setOrder(this);
     }
-    
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+
+    public void removeItem(Item item) {
+        items.remove(item);
+        item.setOrder(null);
     }
 }

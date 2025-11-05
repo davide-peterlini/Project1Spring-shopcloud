@@ -1,10 +1,8 @@
 package it.smartcommunitylabdhub.shoprating.controller;
 
-import com.example.shoprating.entity.Rating;
-import com.example.shoprating.service.RatingService;
-
+import it.smartcommunitylabdhub.shoprating.entity.Rating;
+import it.smartcommunitylabdhub.shoprating.service.RatingService;
 import main.java.it.smartcommunitylabdhub.shoprating.dto.RatingRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.http.*;
@@ -19,12 +17,23 @@ public class RatingController {
     @Autowired
     private final RatingService ratingService;
 
-    public RatingController(RatingService ratingService) {
-        this.ratingService = ratingService;
-    }
+    // DTO per il body (compatibile con Java 11)
+    public static class RatingRequest {
+        private int voto;
+        private String commento;
 
-    // DTO per il body
-    public record RatingRequest(int voto, String commento) {}
+        public RatingRequest() {}
+
+        public RatingRequest(int voto, String commento) {
+            this.voto = voto;
+            this.commento = commento;
+        }
+
+        public int getVoto() { return voto; }
+        public void setVoto(int voto) { this.voto = voto; }
+        public String getCommento() { return commento; }
+        public void setCommento(String commento) { this.commento = commento; }
+    }
 
     @PostMapping("/{productId}/{userId}")
     public ResponseEntity<Rating> addOrUpdateRating(
@@ -32,7 +41,7 @@ public class RatingController {
             @PathVariable Long userId,
             @RequestBody RatingRequest request) {
 
-        Rating rating = ratingService.addOrUpdateRating(productId, userId, request);
+    Rating rating = ratingService.saveOrUpdateRating(productId, userId, request.getVoto(), request.getCommento());
         return ResponseEntity.ok(rating);
     }
 

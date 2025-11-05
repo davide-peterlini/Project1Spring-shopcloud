@@ -1,10 +1,8 @@
 package it.smartcommunitylabdhub.shoprating.service;
 
-import com.example.shoprating.entity.Rating;
-import com.example.shoprating.repository.RatingRepository;
-
+import it.smartcommunitylabdhub.shoprating.entity.Rating;
+import it.smartcommunitylabdhub.shoprating.repository.RatingRepository;
 import main.java.it.smartcommunitylabdhub.shoprating.dto.RatingRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;

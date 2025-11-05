@@ -1,7 +1,7 @@
 package it.smartcommunitylabdhub.shoprating.entity;
 
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 

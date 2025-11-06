@@ -6,3 +6,6 @@ Content-Type: application/json
   "voto": 5,
   "commento": "Ottimo prodotto, consigliato!"
 }
+
+
+###curl "http://localhost:8080/api/ratings/123?page=0&size=5&sort=createdAt,desc"

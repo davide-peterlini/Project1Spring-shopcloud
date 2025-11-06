@@ -1,5 +1,6 @@
 package it.smartcommunitylabdhub.shoprating.service;
 
+import it.smartcommunitylabdhub.shoprating.dto.RatingResponse;
 import it.smartcommunitylabdhub.shoprating.entity.Rating;
 import it.smartcommunitylabdhub.shoprating.repository.RatingRepository;
 import main.java.it.smartcommunitylabdhub.shoprating.dto.RatingRequest;
@@ -56,5 +57,11 @@ public class RatingService {
                         "averageRating", ((Double) r[1])
                 ))
                 .collect(Collectors.toList());
+    }
+
+    public Page<RatingResponse> getRatingsForProductLight(Long productId, Pageable pageable) {
+    // Riusa la tua query esistente, mappa agli unici due campi richiesti dall’API
+    return ratingRepository.findByProductId(productId, pageable)
+            .map(r -> new RatingResponse(r.getVoto(), r.getCommento()));
     }
 }

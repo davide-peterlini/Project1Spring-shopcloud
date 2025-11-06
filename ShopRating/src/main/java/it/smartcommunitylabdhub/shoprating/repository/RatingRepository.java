@@ -19,3 +19,5 @@ public interface RatingRepository extends JpaRepository<Rating, Long> {
     @Query("SELECT r.productId AS productId, AVG(r.voto) AS avgRating FROM Rating r GROUP BY r.productId")
     List<Object[]> findAverageRatings();
 }
+
+

@@ -1,5 +1,7 @@
 package it.outdoor.payment.models.dto;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import lombok.*;
 
@@ -9,10 +11,12 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class PaymentDTO {
-    private String id;
-    private String userId;
-    private String orderId;
+    private Long id;
     private String paymentId;
-    private Double amount;
+    private String orderId;
+    private String userId;
+    private BigDecimal amount;
     private String status;
+    private String paymentMethod;
+    private LocalDateTime createdAt;
 }

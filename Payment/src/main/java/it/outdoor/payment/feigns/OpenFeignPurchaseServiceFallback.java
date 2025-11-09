@@ -1,20 +1,29 @@
 package it.outdoor.payment.feigns;
 
-
 import it.outdoor.payment.models.Order;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
-public class OpenFeignPurchaseServiceFallback {
+public class OpenFeignPurchaseServiceFallback implements OpenFeignPurchaseService {
 
-    Order getOrder(String id) {
-        return Order.builder().build();
+    @Override
+    public Optional<Order> getOrder(String userId, String orderId) {
+        Order order = new Order();
+        order.setOrderId(orderId);
+        order.setUserId(userId);
+        order.setStatus("UNAVAILABLE");
+        return Optional.of(order);
     }
 
-    boolean verifyProductAvailability(String id, Integer quantity) {
-        return false;
+    @Override
+    public boolean verifyProductAvailability(String id, Integer quantity) {
+        return false; // Fallback assumes product is not available
     }
 
-    void changeProductAvailability(String id, Integer quantity) {
+    @Override
+    public void changeProductAvailability(String id, Integer quantity) {
+        // Fallback implementation - do nothing
     }
 }

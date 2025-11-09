@@ -34,7 +34,7 @@ public class ProductService {
     }
 
     //    Get product by Id: /api/products/{id}
-    public Optional<ProductDTO> getProductById(String id) {
+    public Optional<ProductDTO> getProductById(Long id) {
         return productRepository.findById(id).map(product ->
                 new ProductDTO(
                         product.getId(),
@@ -79,7 +79,7 @@ public class ProductService {
     }
 
     //    Change availability: PUT /api/products/{id}/availability/{value}
-    public ProductDTO changeAvailability(String id, Integer value) {
+    public ProductDTO changeAvailability(Long id, Integer value) {
         Product product = productRepository.findById(id).orElse(null);
         if(product == null) {
             return null;

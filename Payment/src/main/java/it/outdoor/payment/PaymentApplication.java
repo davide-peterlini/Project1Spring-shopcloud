@@ -7,10 +7,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableFeignClients
+@EnableDiscoveryClient
 public class PaymentApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(PaymentApplication.class, args);
     }
-
 }

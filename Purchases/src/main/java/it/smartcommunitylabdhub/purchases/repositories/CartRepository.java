@@ -1,10 +1,12 @@
 package it.smartcommunitylabdhub.purchases.repositories;
 
 import it.smartcommunitylabdhub.purchases.models.Cart;
-import org.springframework.data.mongodb.repository.MongoRepository;
-
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
-public interface CartRepository extends MongoRepository<Cart, String> {
+@Repository
+public interface CartRepository extends JpaRepository<Cart, Long> {
     Optional<Cart> findByUserId(String userId);
+    void deleteByUserId(String userId);
 }

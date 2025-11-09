@@ -1,135 +1,175 @@
 package it.smartcommunitylabdhub.purchases.services;
 
-
-import it.smartcommunitylabdhub.purchases.feigns.OpenFeignCatalogService;
 import it.smartcommunitylabdhub.purchases.models.Cart;
 import it.smartcommunitylabdhub.purchases.models.Item;
-import it.smartcommunitylabdhub.purchases.models.Product;
 import it.smartcommunitylabdhub.purchases.models.dtos.CartDTO;
 import it.smartcommunitylabdhub.purchases.repositories.CartRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class CartService {
 
-    private final CartRepository cartRepository;
+    @Autowired
+    private CartRepository cartRepository;
 
-    private final OpenFeignCatalogService catalogService;
-
-    public CartService(CartRepository cartRepository, OpenFeignCatalogService catalogService) {
-        this.cartRepository = cartRepository;
-        this.catalogService = catalogService;
+    public Optional<CartDTO> getCartByUserId(String userId) {
+        Optional<Cart> cart = cartRepository.findByUserId(userId);
+        return cart.map(this::convertToDTO);
     }
 
-
-    public Optional<Cart> getCart(String userId) {
-
-        return cartRepository.findByUserId(userId);
+    public CartDTO saveCart(CartDTO cartDTO) {
+        Cart cart = convertToEntity(cartDTO);
+        Cart savedCart = cartRepository.save(cart);
+        return convertToDTO(savedCart);
     }
 
-    public Optional<Cart> updateCart(String userId, Cart cart) {
-        return cartRepository.findByUserId(userId).map(
-                c -> {
-                    c.setItems(cart.getItems());
-                    c.setTotalPrice(cart.getTotalPrice());
-                    return cartRepository.save(cart);
-                });
-    }
-
-    public Boolean deleteCart(String userId) {
-        try {
-            cartRepository.findByUserId(userId)
-                    .ifPresent(cartRepository::delete);
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
-    }
-
-    public CartDTO addProductToCart(String userId, String productId, Integer quantity) {
-        // Check if product is available from catalog
-        Product product = catalogService.getProductFromCatalog(productId);
-
-        // Check if product is available
-        if (product.getAvailability() < quantity) {
-            throw new RuntimeException("Product not available");
-        }
-        // check if user has a cart
-        if (cartRepository.findByUserId(userId).isEmpty()) {
-            // create a new cart
-            Cart cart = cartRepository.save(Cart.builder()
-                    .userId(userId)
-                    .items(List.of((Item.builder()
-                            .product(product)
-                            .quantity(quantity)
-                            .price(product.getPrice())
-                            .build())))
-                    .totalPrice(product.getPrice() * quantity)
-                    .build());
-
-
-            return CartDTO.builder()
-                    .userId(userId)
-                    .items(cart.getItems())
-                    .totalPrice(cart.getTotalPrice())
-                    .build();
+    public CartDTO updateCart(CartDTO cartDTO) {
+        Optional<Cart> existingCart = cartRepository.findByUserId(cartDTO.getUserId());
+        
+        if (existingCart.isPresent()) {
+            Cart cart = existingCart.get();
+            updateCartFromDTO(cart, cartDTO);
+            Cart savedCart = cartRepository.save(cart);
+            return convertToDTO(savedCart);
         } else {
-            // get cart
-            Cart cart = cartRepository.findByUserId(userId).get();
-
-            // check if product is already in cart
-            Item item = cart.getItems().stream()
-                    .filter(i -> i.getProduct().getId().equals(productId))
-                    .findFirst()
-                    .orElse(null);
-
-            if (item == null) {
-                // add product to cart
-                cart.getItems().add(Item.builder()
-                        .product(product)
-                        .quantity(quantity)
-                        .price(product.getPrice())
-                        .build());
-                cart.setTotalPrice(cart.getTotalPrice() + product.getPrice() * quantity);
-                cartRepository.save(cart);
-            } else {
-                // update quantity
-                item.setQuantity(item.getQuantity() + quantity);
-                item.setPrice(product.getPrice());
-                cart.setTotalPrice(cart.getTotalPrice() + product.getPrice() * quantity);
-                cartRepository.save(cart);
-            }
-
-            return CartDTO.builder()
-                    .userId(userId)
-                    .items(cart.getItems())
-                    .totalPrice(cart.getTotalPrice())
-                    .build();
+            return saveCart(cartDTO);
         }
     }
 
-    public Optional<Cart> removeProductFromCart(String userId, String productId) {
-        Optional<Cart> optionalCart = cartRepository.findByUserId(userId);
+    public void deleteCartByUserId(String userId) {
+        cartRepository.deleteByUserId(userId);
+    }
 
-        if (optionalCart.isPresent()) {
-            Cart cart = optionalCart.get();
+    public CartDTO addItemToCart(String userId, CartDTO.ItemDTO itemDTO) {
+        Cart cart = cartRepository.findByUserId(userId).orElse(new Cart());
+        if (cart.getId() == null) {
+            cart.setUserId(userId);
+        }
 
-            cart.getItems().removeIf(item -> item.getProduct().getId().equals(productId));
+        // Check if item already exists in cart
+        Optional<Item> existingItem = cart.getItems().stream()
+                .filter(item -> item.getProductId().equals(itemDTO.getProductId()))
+                .findFirst();
 
-            double newTotal = cart.getItems().stream()
+        if (existingItem.isPresent()) {
+            // Update quantity
+            Item item = existingItem.get();
+            item.setQuantity(item.getQuantity() + itemDTO.getQuantity());
+        } else {
+            // Add new item
+            Item newItem = new Item();
+            newItem.setProductId(itemDTO.getProductId());
+            newItem.setQuantity(itemDTO.getQuantity());
+            newItem.setPrice(itemDTO.getPrice());
+            cart.addItem(newItem);
+        }
+
+        // Recalculate total price
+        calculateTotalPrice(cart);
+        
+        Cart savedCart = cartRepository.save(cart);
+        return convertToDTO(savedCart);
+    }
+
+    public CartDTO removeItemFromCart(String userId, String productId) {
+        Optional<Cart> cartOpt = cartRepository.findByUserId(userId);
+        
+        if (cartOpt.isPresent()) {
+            Cart cart = cartOpt.get();
+            cart.getItems().removeIf(item -> item.getProductId().equals(productId));
+            calculateTotalPrice(cart);
+            Cart savedCart = cartRepository.save(cart);
+            return convertToDTO(savedCart);
+        }
+        
+        throw new RuntimeException("Cart not found for user: " + userId);
+    }
+
+    private void calculateTotalPrice(Cart cart) {
+        if (cart.getItems() != null) {
+            double total = cart.getItems().stream()
                     .mapToDouble(item -> item.getPrice() * item.getQuantity())
                     .sum();
-
-            cart.setTotalPrice(newTotal);
-            cartRepository.save(cart);
-
-            return Optional.of(cart);
+            cart.setTotalPrice(total);
         } else {
-            return Optional.empty();
+            cart.setTotalPrice(0.0);
         }
     }
 
+    private CartDTO convertToDTO(Cart cart) {
+        CartDTO dto = new CartDTO();
+        dto.setId(cart.getId());
+        dto.setUserId(cart.getUserId());
+        dto.setTotalPrice(cart.getTotalPrice());
+        
+        if (cart.getItems() != null && !cart.getItems().isEmpty()) {
+            List<CartDTO.ItemDTO> itemDTOs = cart.getItems().stream()
+                    .map(this::convertItemToDTO)
+                    .collect(Collectors.toList());
+            dto.setItems(itemDTOs);
+        } else {
+            dto.setItems(new ArrayList<>());
+        }
+        
+        return dto;
+    }
+
+    private Cart convertToEntity(CartDTO dto) {
+        Cart cart = new Cart();
+        if (dto.getId() != null) {
+            cart.setId(dto.getId());
+        }
+        cart.setUserId(dto.getUserId());
+        cart.setTotalPrice(dto.getTotalPrice());
+        
+        if (dto.getItems() != null) {
+            List<Item> items = dto.getItems().stream()
+                    .map(itemDTO -> convertItemToEntity(itemDTO, cart))
+                    .collect(Collectors.toList());
+            cart.setItems(items);
+        }
+        
+        return cart;
+    }
+
+    private void updateCartFromDTO(Cart cart, CartDTO dto) {
+        cart.setTotalPrice(dto.getTotalPrice());
+        
+        if (dto.getItems() != null) {
+            cart.getItems().clear();
+            List<Item> items = dto.getItems().stream()
+                    .map(itemDTO -> convertItemToEntity(itemDTO, cart))
+                    .collect(Collectors.toList());
+            cart.getItems().addAll(items);
+        }
+    }
+
+    private CartDTO.ItemDTO convertItemToDTO(Item item) {
+        CartDTO.ItemDTO dto = new CartDTO.ItemDTO();
+        dto.setId(item.getId());
+        dto.setProductId(item.getProductId());
+        dto.setQuantity(item.getQuantity());
+        dto.setPrice(item.getPrice());
+        return dto;
+    }
+
+    private Item convertItemToEntity(CartDTO.ItemDTO dto, Cart cart) {
+        Item item = new Item();
+        if (dto.getId() != null) {
+            item.setId(dto.getId());
+        }
+        item.setProductId(dto.getProductId());
+        item.setQuantity(dto.getQuantity());
+        item.setPrice(dto.getPrice());
+        item.setCart(cart);
+        return item;
+    }
 }

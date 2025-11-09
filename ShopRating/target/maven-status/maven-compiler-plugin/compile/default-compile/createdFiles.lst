@@ -1,0 +1,15 @@
+it\smartcommunitylabdhub\shoprating\controller\RatingController$RatingRequest.class
+it\smartcommunitylabdhub\shoprating\models\dto\PopularProductDTO.class
+it\smartcommunitylabdhub\shoprating\models\dto\RatingResponseDTO.class
+it\smartcommunitylabdhub\shoprating\service\RatingService.class
+it\smartcommunitylabdhub\shoprating\models\RatingRequest.class
+it\smartcommunitylabdhub\shoprating\entity\Rating.class
+it\smartcommunitylabdhub\shoprating\models\RatingResponse.class
+it\smartcommunitylabdhub\shoprating\ShopRatingApplication.class
+it\smartcommunitylabdhub\shoprating\configs\RestTemplateConfig.class
+it\smartcommunitylabdhub\shoprating\controller\PopularController.class
+it\smartcommunitylabdhub\shoprating\controller\RatingQueryController.class
+it\smartcommunitylabdhub\shoprating\models\dto\RatingRequestDTO.class
+it\smartcommunitylabdhub\shoprating\controller\RatingController.class
+it\smartcommunitylabdhub\shoprating\models\PopularProduct.class
+it\smartcommunitylabdhub\shoprating\repository\RatingRepository.class

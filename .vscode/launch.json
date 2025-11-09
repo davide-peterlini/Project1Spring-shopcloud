@@ -1,0 +1,77 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "ShopRatingApplication",
+            "request": "launch",
+            "mainClass": "it.smartcommunitylabdhub.shoprating.ShopRatingApplication",
+            "projectName": "ShopRating"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "CatalogApplication",
+            "request": "launch",
+            "mainClass": "it.smartcommunitylabdhub.catalog.CatalogApplication",
+            "projectName": "Catalog"
+        },
+        {
+            "type": "java",
+            "name": "ConfigurationClientApplication",
+            "request": "launch",
+            "mainClass": "it.smartcommunitylabdhub.configurationclient.ConfigurationClientApplication",
+            "projectName": "ConfigurationClient"
+        },
+        {
+            "type": "java",
+            "name": "ConfigurationServerApplication",
+            "request": "launch",
+            "mainClass": "it.smartcommunitylabdhub.configurationserver.ConfigurationServerApplication",
+            "projectName": "ConfigurationServer"
+        },
+        {
+            "type": "java",
+            "name": "PaymentApplication",
+            "request": "launch",
+            "mainClass": "it.outdoor.payment.PaymentApplication",
+            "projectName": "Payment"
+        },
+        {
+            "type": "java",
+            "name": "PurchasesApplication",
+            "request": "launch",
+            "mainClass": "it.smartcommunitylabdhub.purchases.PurchasesApplication",
+            "projectName": "Purchases"
+        },
+        {
+            "type": "java",
+            "name": "RestTemplateApplication",
+            "request": "launch",
+            "mainClass": "it.smartcommunitylabdhub.resttemplate.RestTemplateApplication",
+            "projectName": "RestTemplate"
+        },
+        {
+            "type": "java",
+            "name": "ShopEurekaServerApplication",
+            "request": "launch",
+            "mainClass": "it.smartcommunitylabdhub.shopeurekaserver.ShopEurekaServerApplication",
+            "projectName": "ShopEurekaServer"
+        },
+        {
+            "type": "java",
+            "name": "ShopGatewayApplication",
+            "request": "launch",
+            "mainClass": "it.smartcommunitylabdhub.shopgateway.ShopGatewayApplication",
+            "projectName": "ShopGateway"
+        }
+    ]
+}

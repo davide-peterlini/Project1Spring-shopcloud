@@ -1,4 +1,4 @@
-package main.java.it.smartcommunitylabdhub.shoprating.dto;
+package it.smartcommunitylabdhub.shoprating.models.dto;
 
 public class RatingRequestDTO {
     private int voto;

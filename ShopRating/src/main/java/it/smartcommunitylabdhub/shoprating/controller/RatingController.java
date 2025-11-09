@@ -2,7 +2,6 @@ package it.smartcommunitylabdhub.shoprating.controller;
 
 import it.smartcommunitylabdhub.shoprating.entity.Rating;
 import it.smartcommunitylabdhub.shoprating.service.RatingService;
-import main.java.it.smartcommunitylabdhub.shoprating.dto.RatingRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.http.*;
@@ -15,7 +14,7 @@ import java.util.*;
 public class RatingController {
 
     @Autowired
-    private final RatingService ratingService;
+    private RatingService ratingService;
 
     // DTO per il body (compatibile con Java 11)
     public static class RatingRequest {

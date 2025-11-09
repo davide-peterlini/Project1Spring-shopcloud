@@ -1,11 +1,11 @@
-package it.smartcommunitylabdhub.shoprating.model;
+package it.smartcommunitylabdhub.shoprating.models;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "ratings")
-public class Rating {
+public class RatingRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,11 +20,11 @@ public class Rating {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    public Rating() {
+    public RatingRequest() {
         this.createdAt = LocalDateTime.now();
     }
 
-    public Rating(int voto, String commento) {
+    public RatingRequest(int voto, String commento) {
         this.voto = voto;
         this.commento = commento;
         this.createdAt = LocalDateTime.now();

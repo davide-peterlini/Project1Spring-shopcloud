@@ -1,6 +1,6 @@
 package it.smartcommunitylabdhub.shoprating.controller;
 
-import it.smartcommunitylabdhub.shoprating.dto.PopularProductDTO;
+import it.smartcommunitylabdhub.shoprating.models.dto.PopularProductDTO;
 import it.smartcommunitylabdhub.shoprating.service.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

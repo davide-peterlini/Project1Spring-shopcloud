@@ -1,4 +1,4 @@
-package it.smartcommunitylabdhub.shoprating.dto;
+package it.smartcommunitylabdhub.shoprating.models.dto;
 
 public class PopularProductDTO {
     private String id;

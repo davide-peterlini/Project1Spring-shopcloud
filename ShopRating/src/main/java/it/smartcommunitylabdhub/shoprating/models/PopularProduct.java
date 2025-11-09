@@ -1,6 +1,6 @@
-package it.smartcommunitylabdhub.shoprating.model;
+package it.smartcommunitylabdhub.shoprating.models;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity

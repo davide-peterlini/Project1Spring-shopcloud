@@ -1,24 +1,21 @@
-package it.smartcommunitylabdhub.shoprating.model;
+package it.smartcommunitylabdhub.shoprating.models;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "ratings")
-public class Rating {
+public class RatingResponse {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Relazioni con Product e User (molto probabili nel tuo progetto)
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
+    @Column(name = "product_id", nullable = false)
+    private Long productId;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
     @Column(nullable = false)
     private int voto;
@@ -26,62 +23,23 @@ public class Rating {
     @Column(length = 1000)
     private String commento;
 
-    @Column(nullable = false)
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    // Costruttori
-    public Rating() {}
+    public RatingResponse() {}
 
-    public Rating(Product product, User user, int voto, String commento) {
-        this.product = product;
-        this.user = user;
+    public RatingResponse(Long productId, Long userId, int voto, String commento) {
+        this.productId = productId;
+        this.userId = userId;
         this.voto = voto;
         this.commento = commento;
         this.createdAt = LocalDateTime.now();
     }
 
-    // Getter e Setter
-    public Long getId() {
-        return id;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public int getVoto() {
-        return voto;
-    }
-
-    public void setVoto(int voto) {
-        this.voto = voto;
-    }
-
-    public String getCommento() {
-        return commento;
-    }
-
-    public void setCommento(String commento) {
-        this.commento = commento;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
+    public Long getId() { return id; }
+    public Long getProductId() { return productId; }
+    public Long getUserId() { return userId; }
+    public int getVoto() { return voto; }
+    public String getCommento() { return commento; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
 }

@@ -1,0 +1,82 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.5)
+
+2025-11-09T16:03:24.138Z  INFO 60489 --- [ShopEurekaServer] [           main] i.s.s.ShopEurekaServerApplication        : Starting ShopEurekaServerApplication v0.0.1-SNAPSHOT using Java 21.0.8 with PID 60489 (/workspaces/Project1Spring-shopcloud/ShopEurekaServer/target/ShopEurekaServer-0.0.1-SNAPSHOT.jar started by codespace in /workspaces/Project1Spring-shopcloud)
+2025-11-09T16:03:24.144Z  INFO 60489 --- [ShopEurekaServer] [           main] i.s.s.ShopEurekaServerApplication        : No active profile set, falling back to 1 default profile: "default"
+2025-11-09T16:03:26.537Z  INFO 60489 --- [ShopEurekaServer] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=17c9eba0-1ee0-3c9a-849d-a4024eefa1f7
+2025-11-09T16:03:27.022Z  INFO 60489 --- [ShopEurekaServer] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8761 (http)
+2025-11-09T16:03:27.038Z  INFO 60489 --- [ShopEurekaServer] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-11-09T16:03:27.039Z  INFO 60489 --- [ShopEurekaServer] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-11-09T16:03:27.079Z  INFO 60489 --- [ShopEurekaServer] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-11-09T16:03:27.082Z  INFO 60489 --- [ShopEurekaServer] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2763 ms
+2025-11-09T16:03:28.999Z  INFO 60489 --- [ShopEurekaServer] [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON encoding codec LegacyJacksonJson
+2025-11-09T16:03:29.002Z  INFO 60489 --- [ShopEurekaServer] [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON decoding codec LegacyJacksonJson
+2025-11-09T16:03:29.273Z  INFO 60489 --- [ShopEurekaServer] [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML encoding codec XStreamXml
+2025-11-09T16:03:29.273Z  INFO 60489 --- [ShopEurekaServer] [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML decoding codec XStreamXml
+2025-11-09T16:03:29.543Z  INFO 60489 --- [ShopEurekaServer] [           main] o.s.v.b.OptionalValidatorFactoryBean     : Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-11-09T16:03:30.984Z  WARN 60489 --- [ShopEurekaServer] [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2025-11-09T16:03:31.022Z  INFO 60489 --- [ShopEurekaServer] [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2025-11-09T16:03:31.051Z  INFO 60489 --- [ShopEurekaServer] [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2025-11-09T16:03:31.052Z  INFO 60489 --- [ShopEurekaServer] [           main] com.netflix.discovery.DiscoveryClient    : Client configured to neither register nor query for data.
+2025-11-09T16:03:31.054Z  INFO 60489 --- [ShopEurekaServer] [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1762704211053 with initial instances count: 0
+2025-11-09T16:03:31.136Z  INFO 60489 --- [ShopEurekaServer] [           main] c.n.eureka.DefaultEurekaServerContext    : Initializing ...
+2025-11-09T16:03:31.139Z  INFO 60489 --- [ShopEurekaServer] [           main] c.n.eureka.cluster.PeerEurekaNodes       : Adding new peer nodes [http://localhost:8761/eureka/]
+2025-11-09T16:03:31.389Z  INFO 60489 --- [ShopEurekaServer] [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON encoding codec LegacyJacksonJson
+2025-11-09T16:03:31.391Z  INFO 60489 --- [ShopEurekaServer] [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON decoding codec LegacyJacksonJson
+2025-11-09T16:03:31.392Z  INFO 60489 --- [ShopEurekaServer] [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML encoding codec XStreamXml
+2025-11-09T16:03:31.392Z  INFO 60489 --- [ShopEurekaServer] [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML decoding codec XStreamXml
+2025-11-09T16:03:31.454Z  INFO 60489 --- [ShopEurekaServer] [           main] c.n.eureka.cluster.PeerEurekaNodes       : Replica node URL:  http://localhost:8761/eureka/
+2025-11-09T16:03:31.470Z  INFO 60489 --- [ShopEurekaServer] [           main] c.n.e.registry.AbstractInstanceRegistry  : Finished initializing remote region registries. All known remote regions: []
+2025-11-09T16:03:31.470Z  INFO 60489 --- [ShopEurekaServer] [           main] c.n.eureka.DefaultEurekaServerContext    : Initialized
+2025-11-09T16:03:31.492Z  INFO 60489 --- [ShopEurekaServer] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2025-11-09T16:03:31.615Z  INFO 60489 --- [ShopEurekaServer] [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application SHOPEUREKASERVER with eureka with status UP
+2025-11-09T16:03:31.657Z  INFO 60489 --- [ShopEurekaServer] [       Thread-9] o.s.c.n.e.server.EurekaServerBootstrap   : isAws returned false
+2025-11-09T16:03:31.658Z  INFO 60489 --- [ShopEurekaServer] [       Thread-9] o.s.c.n.e.server.EurekaServerBootstrap   : Initialized server context
+2025-11-09T16:03:31.660Z  INFO 60489 --- [ShopEurekaServer] [       Thread-9] c.n.e.r.PeerAwareInstanceRegistryImpl    : Got 1 instances from neighboring DS node
+2025-11-09T16:03:31.660Z  INFO 60489 --- [ShopEurekaServer] [       Thread-9] c.n.e.r.PeerAwareInstanceRegistryImpl    : Renew threshold is: 1
+2025-11-09T16:03:31.660Z  INFO 60489 --- [ShopEurekaServer] [       Thread-9] c.n.e.r.PeerAwareInstanceRegistryImpl    : Changing status to UP
+2025-11-09T16:03:31.665Z  INFO 60489 --- [ShopEurekaServer] [       Thread-9] e.s.EurekaServerInitializerConfiguration : Started Eureka Server
+2025-11-09T16:03:31.674Z  INFO 60489 --- [ShopEurekaServer] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8761 (http) with context path '/'
+2025-11-09T16:03:31.678Z  INFO 60489 --- [ShopEurekaServer] [           main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8761
+2025-11-09T16:03:31.707Z  INFO 60489 --- [ShopEurekaServer] [           main] i.s.s.ShopEurekaServerApplication        : Started ShopEurekaServerApplication in 8.966 seconds (process running for 10.459)
+2025-11-09T16:03:46.358Z  INFO 60489 --- [ShopEurekaServer] [nio-8761-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-09T16:03:46.362Z  INFO 60489 --- [ShopEurekaServer] [nio-8761-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-11-09T16:03:46.364Z  INFO 60489 --- [ShopEurekaServer] [nio-8761-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-11-09T16:03:46.528Z  WARN 60489 --- [ShopEurekaServer] [nio-8761-exec-1] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: SHOP-GATEWAY - fb4431ae-11b6-4cbc-a0d8-3f97fe7be1a0.internal.cloudapp.net:shop-gateway:9999
+2025-11-09T16:03:46.529Z  WARN 60489 --- [ShopEurekaServer] [nio-8761-exec-1] c.n.eureka.resources.InstanceResource    : Not Found (Renew): SHOP-GATEWAY - fb4431ae-11b6-4cbc-a0d8-3f97fe7be1a0.internal.cloudapp.net:shop-gateway:9999
+2025-11-09T16:03:46.875Z  INFO 60489 --- [ShopEurekaServer] [nio-8761-exec-4] c.n.e.registry.AbstractInstanceRegistry  : Registered instance SHOP-GATEWAY/fb4431ae-11b6-4cbc-a0d8-3f97fe7be1a0.internal.cloudapp.net:shop-gateway:9999 with status UP (replication=false)
+2025-11-09T16:03:46.877Z  INFO 60489 --- [ShopEurekaServer] [nio-8761-exec-5] c.n.e.registry.AbstractInstanceRegistry  : Registered instance SHOP-GATEWAY/fb4431ae-11b6-4cbc-a0d8-3f97fe7be1a0.internal.cloudapp.net:shop-gateway:9999 with status UP (replication=false)
+2025-11-09T16:03:47.657Z  WARN 60489 --- [ShopEurekaServer] [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : There is an existing lease and the existing lease's dirty timestamp 1762704226838 is greater than the one that is being registered 1762704076078
+2025-11-09T16:03:47.657Z  WARN 60489 --- [ShopEurekaServer] [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Using the existing instanceInfo instead of the new instanceInfo as the registrant
+2025-11-09T16:03:47.657Z  INFO 60489 --- [ShopEurekaServer] [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Registered instance SHOP-GATEWAY/fb4431ae-11b6-4cbc-a0d8-3f97fe7be1a0.internal.cloudapp.net:shop-gateway:9999 with status UP (replication=true)
+2025-11-09T16:04:31.661Z  INFO 60489 --- [ShopEurekaServer] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2025-11-09T16:05:31.661Z  INFO 60489 --- [ShopEurekaServer] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2025-11-09T16:06:31.664Z  INFO 60489 --- [ShopEurekaServer] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3ms
+2025-11-09T16:07:31.670Z  INFO 60489 --- [ShopEurekaServer] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 5ms
+2025-11-09T16:07:40.959Z  INFO 60489 --- [ShopEurekaServer] [nio-8761-exec-7] c.n.e.registry.AbstractInstanceRegistry  : Registered instance CATALOG/fb4431ae-11b6-4cbc-a0d8-3f97fe7be1a0.internal.cloudapp.net:catalog:0 with status UP (replication=false)
+2025-11-09T16:07:40.972Z  WARN 60489 --- [ShopEurekaServer] [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : There is an existing lease and the existing lease's dirty timestamp 1762704460192 is greater than the one that is being registered 1762704460137
+2025-11-09T16:07:40.972Z  WARN 60489 --- [ShopEurekaServer] [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Using the existing instanceInfo instead of the new instanceInfo as the registrant
+2025-11-09T16:07:40.973Z  INFO 60489 --- [ShopEurekaServer] [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Registered instance CATALOG/fb4431ae-11b6-4cbc-a0d8-3f97fe7be1a0.internal.cloudapp.net:catalog:0 with status UP (replication=false)
+2025-11-09T16:07:41.516Z  WARN 60489 --- [ShopEurekaServer] [nio-8761-exec-9] c.n.e.registry.AbstractInstanceRegistry  : There is an existing lease and the existing lease's dirty timestamp 1762704460192 is greater than the one that is being registered 1762704460137
+2025-11-09T16:07:41.521Z  WARN 60489 --- [ShopEurekaServer] [nio-8761-exec-9] c.n.e.registry.AbstractInstanceRegistry  : Using the existing instanceInfo instead of the new instanceInfo as the registrant
+2025-11-09T16:07:41.524Z  INFO 60489 --- [ShopEurekaServer] [nio-8761-exec-9] c.n.e.registry.AbstractInstanceRegistry  : Registered instance CATALOG/fb4431ae-11b6-4cbc-a0d8-3f97fe7be1a0.internal.cloudapp.net:catalog:0 with status UP (replication=true)
+2025-11-09T16:07:42.409Z  INFO 60489 --- [ShopEurekaServer] [nio-8761-exec-3] c.n.e.registry.AbstractInstanceRegistry  : Registered instance CATALOG/fb4431ae-11b6-4cbc-a0d8-3f97fe7be1a0.internal.cloudapp.net:catalog:0 with status UP (replication=false)
+2025-11-09T16:07:42.989Z  INFO 60489 --- [ShopEurekaServer] [io-8761-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Registered instance CATALOG/fb4431ae-11b6-4cbc-a0d8-3f97fe7be1a0.internal.cloudapp.net:catalog:0 with status UP (replication=true)
+2025-11-09T16:07:43.924Z  INFO 60489 --- [ShopEurekaServer] [nio-8761-exec-1] c.n.e.registry.AbstractInstanceRegistry  : Registered instance PURCHASE/fb4431ae-11b6-4cbc-a0d8-3f97fe7be1a0.internal.cloudapp.net:purchase:0 with status UP (replication=false)
+2025-11-09T16:07:44.288Z  INFO 60489 --- [ShopEurekaServer] [nio-8761-exec-4] c.n.e.registry.AbstractInstanceRegistry  : Registered instance PAYMENT/fb4431ae-11b6-4cbc-a0d8-3f97fe7be1a0.internal.cloudapp.net:payment:0 with status UP (replication=false)
+2025-11-09T16:07:44.439Z  INFO 60489 --- [ShopEurekaServer] [nio-8761-exec-7] c.n.e.registry.AbstractInstanceRegistry  : Registered instance PURCHASE/fb4431ae-11b6-4cbc-a0d8-3f97fe7be1a0.internal.cloudapp.net:purchase:0 with status UP (replication=true)
+2025-11-09T16:07:44.441Z  INFO 60489 --- [ShopEurekaServer] [nio-8761-exec-7] c.n.e.registry.AbstractInstanceRegistry  : Registered instance PAYMENT/fb4431ae-11b6-4cbc-a0d8-3f97fe7be1a0.internal.cloudapp.net:payment:0 with status UP (replication=true)
+2025-11-09T16:07:44.998Z  INFO 60489 --- [ShopEurekaServer] [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Registered instance PAYMENT/fb4431ae-11b6-4cbc-a0d8-3f97fe7be1a0.internal.cloudapp.net:payment:0 with status UP (replication=false)
+2025-11-09T16:07:45.534Z  INFO 60489 --- [ShopEurekaServer] [nio-8761-exec-9] c.n.e.registry.AbstractInstanceRegistry  : Registered instance PAYMENT/fb4431ae-11b6-4cbc-a0d8-3f97fe7be1a0.internal.cloudapp.net:payment:0 with status UP (replication=true)
+2025-11-09T16:08:31.670Z  INFO 60489 --- [ShopEurekaServer] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2025-11-09T16:09:31.675Z  INFO 60489 --- [ShopEurekaServer] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4ms
+2025-11-09T16:10:31.675Z  INFO 60489 --- [ShopEurekaServer] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2025-11-09T16:11:31.676Z  INFO 60489 --- [ShopEurekaServer] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2025-11-09T16:12:31.675Z  INFO 60489 --- [ShopEurekaServer] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms

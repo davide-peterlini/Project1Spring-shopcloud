@@ -17,8 +17,8 @@ public class RatingQueryController {
         this.ratingService = ratingService;
     }
 
-    // GET /api/ratings/{productId}?page=0&size=10&sort=createdAt,desc
-    @GetMapping("/{productId}")
+    // GET /api/ratings/product/{productId}?page=0&size=10&sort=createdAt,desc
+    @GetMapping("/product/{productId}")
     public Page<RatingResponseDTO> getRatingsByProduct(
             @PathVariable Long productId,
             @PageableDefault(size = 10, sort = "createdAt", direction = org.springframework.data.domain.Sort.Direction.DESC)
